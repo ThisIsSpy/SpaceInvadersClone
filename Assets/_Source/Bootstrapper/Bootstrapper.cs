@@ -11,9 +11,7 @@ public class Bootstrapper : MonoBehaviour
     void Awake()
     {
         Player = FindObjectOfType<Player>().GetComponent<Player>();
-        Debug.Log($"Player {Player} found");
         Listener = Player.GetComponentInChildren<InputListener>();
-        Debug.Log($"Listener {Listener} found");
         Listener.SetInvoker(new(Player));
     }
 }
