@@ -9,6 +9,7 @@ namespace InputSystem
     {
         private PlayerInvoker _invoker;
         private bool _isShootAllowed = true;
+        [field: SerializeField] public float ShootCooldownTime {  get; private set; }
 
         private void Update()
         {
@@ -35,7 +36,7 @@ namespace InputSystem
         IEnumerator ShootInputCooldown()
         {
             _isShootAllowed = false;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(ShootCooldownTime);
             _isShootAllowed = true;
         }
     }
