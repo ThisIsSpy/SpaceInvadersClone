@@ -11,7 +11,8 @@ namespace PlayerSystem
             GameObject projectileCopy = Object.Instantiate(projectile, player.transform.position, player.transform.rotation);
             Projectile projectileProperties = projectileCopy.GetComponent<Projectile>();
             Rigidbody2D projectileRb = projectileCopy.GetComponent<Rigidbody2D>();
-            projectileRb.AddForce(projectileCopy.transform.forward * projectileProperties.Speed, ForceMode2D.Impulse);
+            projectileRb.AddForce(projectileCopy.transform.up * projectileProperties.Speed, ForceMode2D.Impulse);
+            
         }
     }
 }
