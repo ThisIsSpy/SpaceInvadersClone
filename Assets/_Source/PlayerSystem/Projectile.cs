@@ -2,24 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace PlayerSystem
 {
-    public float Lifetime { get; private set; } = 2.0f;
-    public float Speed { get; private set; } = 2.0f;
-    private void Update()
+    public class Projectile : MonoBehaviour
     {
-        DestroyOnScreenExit();
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Destroy(gameObject);
-    }
-    private void DestroyOnScreenExit()
-    {
-        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        if (screenPosition.y > Screen.height || screenPosition.y < 0)
+        //[field: SerializeField] public float Lifetime { get; private set; }
+        [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public float Damage { get; private set; }
+        private void Update()
         {
+            DestroyOnScreenExit();
+        }
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            Physics.SyncTransforms();
             Destroy(gameObject);
+        }
+        private void DestroyOnScreenExit()
+        {
+            Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            if (screenPosition.y > Screen.height || screenPosition.y < 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

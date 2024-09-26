@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PlayerSystem;
 
 namespace EnemySystem
 {
@@ -15,12 +16,16 @@ namespace EnemySystem
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void OnCollisionEnter2D(Collision2D collision)
         {
-            Health -= 10;
-            if (Health <= 0)
+            Physics.SyncTransforms();
+            if (collision.gameObject.GetComponent<Projectile>())
             {
-                Destroy(gameObject);
+                Health -= collision.gameObject.GetComponent<Projectile>().Damage;
+                if (Health <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
