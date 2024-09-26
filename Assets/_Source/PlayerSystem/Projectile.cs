@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float Lifetime { get; private set; } = 2.0f;
     public float Speed { get; private set; } = 2.0f;
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
     }
