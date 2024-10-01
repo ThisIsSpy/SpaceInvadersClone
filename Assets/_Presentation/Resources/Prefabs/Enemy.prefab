@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8551735061160314422}
   - component: {fileID: 756346686490932838}
   - component: {fileID: 3318162607813835279}
-  - component: {fileID: 3343178253966370324}
+  - component: {fileID: 6871768347968316327}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 50
-  <MovementSpeed>k__BackingField: 5
-  <Projectile>k__BackingField: {fileID: 3079365218848690490, guid: 6b4f13f250493164091ee69c83ceec2c, type: 3}
+  <MovementSpeed>k__BackingField: 24
+  <Projectile>k__BackingField: {fileID: 6954224834134482108, guid: 037f6d20592cdd146891f904a8872a8e, type: 3}
 --- !u!50 &3318162607813835279
 Rigidbody2D:
   serializedVersion: 4
@@ -58,7 +58,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194014354198243497}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -77,8 +77,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!66 &3343178253966370324
-CompositeCollider2D:
+--- !u!61 &6871768347968316327
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,16 +110,18 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
-  m_ColliderPaths: []
-  m_CompositePaths:
-    m_Paths: []
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 4194014354198243497}
 --- !u!1 &8534140165427774262
 GameObject:
   m_ObjectHideFlags: 0

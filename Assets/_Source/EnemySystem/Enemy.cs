@@ -16,17 +16,24 @@ namespace EnemySystem
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-        public void OnCollisionEnter2D(Collision2D collision)
+        public void OnTriggerEnter2D(Collider2D collision)
         {
-            Physics.SyncTransforms();
-            if (collision.gameObject.GetComponent<Projectile>())
+            if (collision.gameObject.GetComponent<PlayerProjectile>())
             {
-                Health -= collision.gameObject.GetComponent<Projectile>().Damage;
+                Health -= collision.gameObject.GetComponent<PlayerProjectile>().Damage;
                 if (Health <= 0)
                 {
                     Destroy(gameObject);
                 }
             }
+        }
+        public void Attack()
+        {
+            GameObject projectileCopy = Instantiate(Projectile, transform.position, transform.rotation);
+            EnemyProjectile projectileProperties = projectileCopy.GetComponent<EnemyProjectile>();
+            Rigidbody2D projectileRb = projectileCopy.GetComponent<Rigidbody2D>();
+            projectileRb.AddForce(-1 * projectileProperties.Speed * projectileCopy.transform.up, ForceMode2D.Impulse);
+            Debug.Log("enemy shoot");
         }
     }
 }
