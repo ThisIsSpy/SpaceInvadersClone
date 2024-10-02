@@ -1,16 +1,17 @@
+using HUDSystem;
 using PlayerSystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 namespace EnemySystem
 {
     public class EnemySpawner : MonoBehaviour
     {
-        private GameObject[,] _enemyArr = new GameObject[4,10];
+        private readonly GameObject[,] _enemyArr = new GameObject[4,10];
         private float _ogStartingX;
-        private float _ogStartingY;
         private float _ogInterval;
         private int _direction;
         private bool _mustChangeDirection;
@@ -42,7 +43,6 @@ namespace EnemySystem
                 }
                 if (_hasFired)
                 {
-                    Debug.Log("Broken");
                     break;
                 }
             }
@@ -59,8 +59,8 @@ namespace EnemySystem
                     {
                         continue;
                     }
-                    _enemyArr[i, j].transform.position = Vector3.MoveTowards(_enemyArr[i, j].transform.position, new Vector3(_enemyArr[i, j].transform.position.x + (_enemyArr[i, j].GetComponent<Enemy>().MovementSpeed * _direction), _enemyArr[i, j].transform.position.y, _enemyArr[i, j].transform.position.z),0.2f);
-                    if(j == 0 || j == 9)
+                    _enemyArr[i, j].transform.position = Vector3.MoveTowards(_enemyArr[i, j].transform.position, new Vector3(_enemyArr[i, j].transform.position.x + (_enemyArr[i, j].GetComponent<Enemy>().MovementIncrement * _direction), _enemyArr[i, j].transform.position.y, _enemyArr[i, j].transform.position.z),0.2f);
+                    if(j == 0 || j == GridLength-1)
                     {
                         if (Mathf.Abs(Vector3.Distance(_enemyArr[i,j].transform.position,_center)) >= 8)
                         {
@@ -93,7 +93,7 @@ namespace EnemySystem
                     {
                         continue;
                     }
-                    _enemyArr[i, j].transform.position = Vector3.MoveTowards(_enemyArr[i, j].transform.position, new Vector3(_enemyArr[i, j].transform.position.x, _enemyArr[i, j].transform.position.y - _enemyArr[i, j].GetComponent<Enemy>().MovementSpeed, _enemyArr[i, j].transform.position.z),0.2f);
+                    _enemyArr[i, j].transform.position = Vector3.MoveTowards(_enemyArr[i, j].transform.position, new Vector3(_enemyArr[i, j].transform.position.x, _enemyArr[i, j].transform.position.y - _enemyArr[i, j].GetComponent<Enemy>().MovementIncrement, _enemyArr[i, j].transform.position.z),0.2f);
                 }
                 yield return new WaitForSeconds(Interval);
             }
@@ -102,7 +102,6 @@ namespace EnemySystem
         private void Awake()
         {
             _ogStartingX = StartingX;
-            _ogStartingY = StartingY;
             _ogInterval = Interval;
             _direction = 1;
             _mustChangeDirection = false;
@@ -130,6 +129,11 @@ namespace EnemySystem
                 {
                     intervalChange++;
                 }
+            }
+            if(intervalChange == GridHeight*GridLength)
+            {
+                GameOverListener.ShowGameOver();
+                StopAllCoroutines();
             }
             Interval = _ogInterval - (intervalChange/15);
         }

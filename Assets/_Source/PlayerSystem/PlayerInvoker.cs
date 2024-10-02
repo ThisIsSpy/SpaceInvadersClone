@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InputSystem;
 
 namespace PlayerSystem
 {
@@ -19,6 +20,10 @@ namespace PlayerSystem
         public void InvokeShoot()
         {
             PlayerCombat.Shoot(_player.Projectile,_player);
+        }
+        public void InvokeRestart()
+        {
+            GameRestart.Restart();
         }
     }
 }

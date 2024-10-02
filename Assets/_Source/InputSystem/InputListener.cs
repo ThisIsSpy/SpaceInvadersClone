@@ -10,11 +10,17 @@ namespace InputSystem
         private PlayerInvoker _invoker;
         private bool _isShootAllowed = true;
         [field: SerializeField] public float ShootCooldownTime {  get; private set; }
-
+        IEnumerator ShootInputCooldown()
+        {
+            _isShootAllowed = false;
+            yield return new WaitForSeconds(ShootCooldownTime);
+            _isShootAllowed = true;
+        }
         private void Update()
         {
             ReadMoveInput();
             ReadShootInput();
+            ReadRestartInput();
         }
         private void ReadMoveInput()
         {
@@ -28,16 +34,16 @@ namespace InputSystem
                 StartCoroutine(ShootInputCooldown());
             }
         }
+        private void ReadRestartInput()
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _invoker.InvokeRestart();
+            }
+        }
         public void SetInvoker(PlayerInvoker invoker)
         {
             _invoker = invoker;
-            Debug.Log("Invoker Set");
-        }
-        IEnumerator ShootInputCooldown()
-        {
-            _isShootAllowed = false;
-            yield return new WaitForSeconds(ShootCooldownTime);
-            _isShootAllowed = true;
         }
     }
 }

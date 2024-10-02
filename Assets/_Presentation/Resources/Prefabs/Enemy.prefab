@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 50
-  <MovementSpeed>k__BackingField: 24
+  <MovementIncrement>k__BackingField: 1
+  <ScorePrize>k__BackingField: 50
   <Projectile>k__BackingField: {fileID: 6954224834134482108, guid: 037f6d20592cdd146891f904a8872a8e, type: 3}
 --- !u!50 &3318162607813835279
 Rigidbody2D:
